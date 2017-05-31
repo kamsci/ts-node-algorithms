@@ -34,6 +34,12 @@ describe('reverseOrRotate function', () => {
 		expect(result).to.equal('722157333');
 	});
 
+	it('should return sections rotated OR reversed depending on if all cubed sums are divisible by 2', () => {
+		const result = reverseOrRotate('123456987654', 5);
+
+		expect(result).to.equal('2345167896');
+	});
+
 	it('should return the input string if size is 1', () => {
 		const resultReverse = reverseOrRotate('247153', 1);
 		const resultRotate = reverseOrRotate('272715333', 1)
@@ -48,5 +54,13 @@ describe('reverseOrRotate function', () => {
 
 		expect(resultReverse).to.equal('421735');
 		expect(resultRotate).to.equal('722157333');
+	});
+
+	it('should return answer when size is equal to string length', () => {
+		const resultReverse = reverseOrRotate('69876', 5);
+		const resultRotate = reverseOrRotate('12345', 5)
+
+		expect(resultReverse).to.equal('67896');
+		expect(resultRotate).to.equal('23451');
 	});
 });
