@@ -90,4 +90,94 @@ describe('MyArrays class', () => {
       expect(result2).to.deep.equal(3);
     });
   });
+
+
+  describe('static "totalScore" function ', () => {
+    it('should return 0 if number of scores is zero', () => {
+      const result = MyArrays.totalScore([], 0);
+
+      expect(result).to.deep.equal(0);
+    });
+
+    it('should skip if first scores are "Z", "X", or "+"', () => {
+      const result = MyArrays.totalScore(['Z', 'X', 9, '+', '+'], 5);
+
+      expect(result).to.deep.equal(36);
+    });
+
+    it('should calcualte score 27', () => {
+      const result = MyArrays.totalScore([5, -2, 4, 'Z', 'X', 9, '+', '+'], 8);
+
+      expect(result).to.deep.equal(27);
+    });
+
+    it('should calcualte score 3', () => {
+      const result = MyArrays.totalScore([1, 2, '+', 'Z'], 4);
+
+      expect(result).to.deep.equal(3);
+    });
+
+    it('should calcualte score with multiple "Z"s in a row', () => {
+      const result = MyArrays.totalScore([5, -2, 4, 'Z', 'Z', 9, 'X'], 7);
+
+      expect(result).to.deep.equal(32);
+    });
+  });
+
+
+  describe('static "matchLunches" function ', () => {
+    it('should return empty array if eitehr arrays are empty', () => {
+      const result = MyArrays.matchLunches([], []);
+
+      expect(result).to.deep.equal([]);
+    });
+
+    it('should return all combo options if team member has no preference "*"', () => {
+      const menuPairs = [['Pizza', 'Italian'], ['Curry', 'Indian'], ['Masala', 'Indian']];
+      const team = [['John', '*']];
+
+      const result = MyArrays.matchLunches(menuPairs, team);
+
+      expect(result).to.deep.equal([['John', 'Pizza'], ['John', 'Curry'], ['John', 'Masala']]);
+    });
+
+    it('should return a pair for all meal options of same type as team member preference', () => {
+      const menuPairs = [['Pad Thai', 'Thai'], ['Curry', 'Thai'], ['Masala', 'Indian'], ['Korma', 'Indian']];
+      const team = [['Meg', 'Thai'], ['Sam', 'Indian']];
+
+      const result = MyArrays.matchLunches(menuPairs, team);
+
+      expect(result).to.deep.equal([['Meg', 'Pad Thai'], ['Meg', 'Curry'], ['Sam', 'Masala'], ['Sam', 'Korma']]);
+    });
+
+    it('should return empty array of no meal options match any team member preference', () => {
+      const menuPairs = [['Pad Thai', 'Thai'], ['Curry', 'Thai'], ['Masala', 'Indian']];
+      const team = [['Meg', 'Mexican'], ['John', 'Italian']];
+
+      const result = MyArrays.matchLunches(menuPairs, team);
+
+      expect(result).to.deep.equal([]);
+    });
+  });
+
+
+  describe('static "zeroOutRowsAndColumns" function ', () => {
+    it('should return empty array if matrix is empty', () => {
+      const result = MyArrays.zeroOutRowsAndColumns([[]]);
+
+      expect(result).to.deep.equal([[]]);
+    });
+
+    it('should return entire single row and single column with 0s if there is a 0 in that row/column', () => {
+      const result = MyArrays.zeroOutRowsAndColumns([[3, 5, 2], [6, 0, 1], [2, 4, 7]]);
+      console.log("matrix", result);
+      expect(result).to.deep.equal([[3, 0, 2], [0, 0, 0], [2, 0, 7]]);
+    });
+
+    it('should return all rows and columns with 0s if there is a 0 in that row/column', () => {
+      const result = MyArrays.zeroOutRowsAndColumns([[0, 5, 2], [6, 0, 1], [2, 4, 7]]);
+      console.log("matrix", result);
+      expect(result).to.deep.equal([[0, 0, 0], [0, 0, 0], [0, 0, 7]]);
+    });
+  });
 });

@@ -145,8 +145,6 @@ export class MyStrings {
       }
       else {
         compression = compression.concat(input[i], counter.toString());
-        console.log("letter", input[i], "counter", counter)
-        console.log("compression", compression)
         counter = 1;
       }
     }
